@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "RickAndMorty(Retrofit Room Coroutines Dagger2 MVVM)"
