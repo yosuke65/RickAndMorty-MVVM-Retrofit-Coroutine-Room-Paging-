@@ -1,28 +1,27 @@
-package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.ui
+package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.ui.main
 
+import android.provider.VoicemailContract
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.models.Episode
-import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.utils.Status
+import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.models.Result
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class EpisodeDataSource(
+class CharacterDataSource(
 
     private val repository: MainRepository,
     private val scope: CoroutineScope
-) : PageKeyedDataSource<Int, Episode>() {
+) : PageKeyedDataSource<Int, Result>() {
 
     companion object{
         private const val TAG = "EpisodeDataSource"
     }
 
-    var status = MutableLiveData<Status>()
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, Episode>
+        callback: LoadInitialCallback<Int, Result>
     ) {
         scope.launch(Dispatchers.IO) {
                 try {
@@ -37,7 +36,7 @@ class EpisodeDataSource(
 
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Episode>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Result>) {
         val page = params.key
         scope.launch(Dispatchers.IO) {
                 try{
@@ -52,7 +51,7 @@ class EpisodeDataSource(
 
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Episode>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Result>) {
         val page = params.key
         scope.launch {
             val data = repository.getEpisodesFromApi(page)

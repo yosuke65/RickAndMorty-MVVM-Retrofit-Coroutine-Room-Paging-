@@ -3,10 +3,7 @@ package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.components
 import android.app.Application
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.apis.ApiService
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.base.BaseApplication
-import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.modules.ActivityBuilderModule
-import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.modules.ApiModule
-import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.modules.RepositoryModule
-import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.modules.ViewModelModule
+import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -21,6 +18,7 @@ import javax.inject.Singleton
         ActivityBuilderModule::class,
         RepositoryModule::class,
         ViewModelModule::class,
+        DbModule::class,
         AndroidInjectionModule::class
     ]
 )

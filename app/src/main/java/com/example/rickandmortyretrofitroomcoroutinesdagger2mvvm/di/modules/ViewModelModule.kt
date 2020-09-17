@@ -3,7 +3,7 @@ package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.annotations.ViewModelKey
-import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.ui.MainViewModel
+import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.ui.main.MainViewModel
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.factory.ViewModelFactory
 import dagger.Binds
 import dagger.Module
