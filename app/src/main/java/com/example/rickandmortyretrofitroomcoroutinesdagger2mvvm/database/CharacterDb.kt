@@ -6,7 +6,7 @@ import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.models.Location
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.models.Result
 
 
-@Database(entities = [Result::class], version = 5, exportSchema = false)
+@Database(entities = [Result::class], version = 14, exportSchema = false)
 //@TypeConverters(value = [Location::class])
 abstract class CharacterDb : RoomDatabase() {
 

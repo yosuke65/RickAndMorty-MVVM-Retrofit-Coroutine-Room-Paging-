@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.main.MainActivity"
+    android:id="@+id/constraint_layout_main">
 
 <!--    <ProgressBar-->
 <!--        android:id="@+id/progressBar"-->
@@ -16,7 +17,7 @@
 <!--        app:layout_constraintTop_toTopOf="@+id/recyclerViewEpisodes" />-->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewEpisodes"
+        android:id="@+id/recyclerViewCharacter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

@@ -1,5 +1,6 @@
 package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.ui.main
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.MutableLiveData
@@ -10,21 +11,35 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
 class CharacterBoundary(
     private val characterDao: CharacterDao,
     private val scope: CoroutineScope,
-    private val repository: MainRepository
+    private val repository: MainRepository,
+    private val sharedPreferences: SharedPreferences
+
 ) :
     PagedList.BoundaryCallback<Result>() {
 
     companion object{
         private const val TAG = "CharacterBoundary"
+        private const val LAST_PAGE = "last_page"
     }
 
     private var isRequestInProgress = false
-    private var lastRequestPage = 1
     private val networkErrors = MutableLiveData<String>()
+    private var lastRequestPage:Int
+
+
+    init {
+
+        lastRequestPage = sharedPreferences.getInt(LAST_PAGE,1)
+        Log.d(TAG, "lastRequestPage: $lastRequestPage")
+    }
+
+
+
 
 
     /**
@@ -33,6 +48,8 @@ class CharacterBoundary(
     @MainThread
     override fun onZeroItemsLoaded() {
         Log.d(TAG, "onZeroItemsLoaded")
+        sharedPreferences.edit().putInt(LAST_PAGE,1).apply()
+        lastRequestPage = 1
         requestAndSaveData()
     }
 
@@ -53,7 +70,7 @@ class CharacterBoundary(
      * every time it gets new items, boundary callback simply inserts them into the database and
      * paging library takes care of refreshing the list if necessary.
      */
-    private fun insertCharactersIntoDb(results:List<Result>,initial: Boolean) {
+    private  fun insertCharactersIntoDb(results:List<Result>, initial: Boolean) {
         Log.d(TAG, "insertCharactersIntoDb")
         Log.d(TAG, "insertCharactersIntoDb: $results")
         characterDao.insertAllCharacters(results)
@@ -75,6 +92,7 @@ class CharacterBoundary(
                     }
                     isRequestInProgress = false
                     lastRequestPage++
+                    sharedPreferences.edit().putInt(LAST_PAGE,lastRequestPage).apply()
                     Log.d(TAG, "Page: $lastRequestPage")
 
 

@@ -1,32 +1,30 @@
-package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.modules
+package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
+import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.TestApplication
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.database.CharacterDao
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.database.CharacterDb
-import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.scopes.AppScope
-import dagger.Component
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-
 @Module
-class DbModule() {
+ class TestDbModule() {
+
 
     @Provides
     @Singleton
-    fun provideDb(application: Application): CharacterDb{
-        return Room.databaseBuilder(application,CharacterDb::class.java,"characterDb")
+    fun provideDb(testApplication: TestApplication): CharacterDb {
+        return Room.databaseBuilder(testApplication, CharacterDb::class.java,"characterDb")
             .fallbackToDestructiveMigration()
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideDao(characterDb: CharacterDb):CharacterDao{
+    fun provideDao(characterDb: CharacterDb): CharacterDao {
         return characterDb.characterDao()
     }
 }

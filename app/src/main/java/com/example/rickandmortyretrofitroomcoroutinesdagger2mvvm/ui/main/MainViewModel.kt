@@ -1,5 +1,7 @@
 package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.ui.main
 
+import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -11,9 +13,15 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val mainRepository: MainRepository,
-    private val characterDao: CharacterDao
+    private val characterDao: CharacterDao,
+    private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
+
+    companion object {
+        private const val LAST_PAGE = "last_page"
+        private const val TAG = "MainViewModel"
+    }
     /**
      * Typical paging strategy
      */
@@ -39,13 +47,14 @@ class MainViewModel @Inject constructor(
         characterDao.getAllCharacters().toLiveData(
             config = PagedList.Config.Builder()
                 .setEnablePlaceholders(true)
-                .setPageSize(20)
-                .setInitialLoadSizeHint(20)
+                .setPageSize(10)
+                .setPrefetchDistance(20)
                 .build(),
             boundaryCallback = CharacterBoundary(
                 characterDao,
                 viewModelScope,
-                mainRepository
+                mainRepository,
+                sharedPreferences
             )
         )
     }

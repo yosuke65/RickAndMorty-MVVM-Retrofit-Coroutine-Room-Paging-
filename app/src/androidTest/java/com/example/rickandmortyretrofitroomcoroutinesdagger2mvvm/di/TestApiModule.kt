@@ -1,4 +1,4 @@
-package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.modules
+package com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di
 
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.apis.ApiService
 import com.example.rickandmortyretrofitroomcoroutinesdagger2mvvm.di.scopes.AppScope
@@ -8,21 +8,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
-class ApiModule {
+class TestApiModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitClient(): Retrofit =
+    open fun provideRetrofitClient(): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api/")
+            .baseUrl("http://localhost:8080/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit):ApiService{
+    open fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 }

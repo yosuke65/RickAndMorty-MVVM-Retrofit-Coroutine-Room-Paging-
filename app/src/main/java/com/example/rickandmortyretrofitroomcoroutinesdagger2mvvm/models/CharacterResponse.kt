@@ -22,8 +22,8 @@ data class Result(
     val id: Int,
     @ColumnInfo(name="image_url")
     val image: String,
-//    @TypeConverters(LocationTypeConverter::class)
-//    val location: Location,
+    @Embedded
+    val location: Location,
     val name: String,
     val species: String,
     val status: String
@@ -31,6 +31,7 @@ data class Result(
 
 
 data class Location(
+    @ColumnInfo(name="location_name")
     val name: String,
     val url: String
 )
